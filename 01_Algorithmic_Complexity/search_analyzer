@@ -1,0 +1,70 @@
+import time
+
+def linear_search(arr, target):
+    """
+    Performs a linear search to find the target element.
+    Time Complexity: O(n) - In the worst-case scenario, the algorithm 
+    must iterate through every single element in the array.
+    """
+    for index, value in enumerate(arr):
+        if value == target:
+            return index
+    return -1
+
+def binary_search(arr, target):
+    """
+    Performs a binary search to find the target element.
+    Time Complexity: O(log n) - The algorithm divides the search interval 
+    in half repeatedly, making it highly efficient for large datasets.
+    Note: The input array MUST be sorted for this algorithm to work.
+    """
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # Check if target is present at mid
+        if arr[mid] == target:
+            return mid
+        # If target is greater, ignore left half
+        elif arr[mid] < target:
+            left = mid + 1
+        # If target is smaller, ignore right half
+        else:
+            right = mid - 1
+            
+    return -1
+
+def run_performance_test():
+    """
+    Generates a large dataset to empirically demonstrate the performance 
+    difference between O(n) and O(log n) algorithms.
+    """
+    print("Generating a dataset of 1,000,000 integers...")
+    # Creating a sorted array of 1 million numbers
+    large_array = list(range(1000000))
+    target_number = 999999 # Searching for the last element (worst-case scenario)
+
+    print(f"Target number to find: {target_number}\n")
+
+    # 1. Testing Linear Search
+    start_time = time.perf_counter()
+    linear_result = linear_search(large_array, target_number)
+    linear_duration = time.perf_counter() - start_time
+    print(f"Linear Search Output: Found at index {linear_result}")
+    print(f"Linear Search Time: {linear_duration:.6f} seconds\n")
+
+    # 2. Testing Binary Search
+    start_time = time.perf_counter()
+    binary_result = binary_search(large_array, target_number)
+    binary_duration = time.perf_counter() - start_time
+    print(f"Binary Search Output: Found at index {binary_result}")
+    print(f"Binary Search Time: {binary_duration:.6f} seconds\n")
+    
+    # 3. Conclusion
+    speed_factor = linear_duration / binary_duration if binary_duration > 0 else float('inf')
+    print(f"Conclusion: Binary search was approximately {speed_factor:.2f} times faster.")
+    print("This clearly illustrates why O(log n) algorithms scale significantly better than O(n) algorithms.")
+
+if __name__ == "__main__":
+    run_performance_test()
