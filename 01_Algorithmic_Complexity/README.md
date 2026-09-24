@@ -14,3 +14,4 @@ Ensure you have Python 3.x installed. Run the following command in your terminal
 
 ```bash
 python search_analyzer.py
+```

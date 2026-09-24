@@ -7,10 +7,14 @@ In the context of AI evaluation and Large Language Model (LLM) training, ensurin
 
 ## Features
 1. **Line Length Validation:** Iterates through the raw text to flag lines exceeding the PEP 8 recommended 79-character limit.
-2. **AST-Based Docstring Detection:** Instead of relying on fragile Regular Expressions, this tool safely parses the code into an Abstract Syntax Tree to accurately detect classes and functions that lack proper documentation strings.
+2. **Naming Convention Check:** Flags functions (including `async` ones) whose names contain uppercase letters, following PEP 8 snake_case.
+3. **AST-Based Docstring Detection:** Instead of relying on fragile Regular Expressions, this tool safely parses the code into an Abstract Syntax Tree to accurately detect classes and functions that lack proper documentation strings.
 
 ## How to Run
 Ensure you have Python 3.x installed. No external libraries are required as it uses native Python modules.
 
 ```bash
-python mini_linter.py
+python mini_linter.py path/to/project
+```
+
+The script exits with code `1` when issues are found, so it can be used in CI pipelines.
